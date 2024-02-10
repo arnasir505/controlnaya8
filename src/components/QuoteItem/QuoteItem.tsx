@@ -1,20 +1,52 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import editIcon from '../../assets/icons/pencil-square.svg';
+import deleteIcon from '../../assets/icons/x.svg';
+import { Link } from 'react-router-dom';
 
-const QuoteItem: React.FC = () => {
+interface Props {
+  id: string;
+  author: string;
+  text: string;
+}
+
+const QuoteItem: React.FC<Props> = ({ id, author, text }) => {
+  const [color, setColor] = useState('');
+
+  const getRandomColor = useCallback((stringInput: string) => {
+    let stringUniqueHash = [...stringInput].reduce((acc, char) => {
+      return char.charCodeAt(0) + ((acc << 5) - acc);
+    }, 0);
+    setColor(`hsl(${stringUniqueHash % 360}, 95%, 35%)`);
+  }, []);
+
+  useEffect(() => {
+    getRandomColor(author);
+  }, [getRandomColor]);
+
   return (
     <figure
-      className='bg-white p-3 rounded'
-      style={{ borderLeft: '.25rem solid #a34e78' }}
+      className='bg-white p-3 rounded position-relative'
+      style={{ borderLeft: '.25rem solid', borderColor: color }}
     >
-      <blockquote className='blockquote pb-2'>
-        <p>
-          Age is an issue of mind over matter. If you don't mind, it doesn't
-          matter.
-        </p>
+      <blockquote className='blockquote mb-1'>
+        <p>{text}</p>
       </blockquote>
-      <figcaption className='blockquote-footer mb-0 font-italic'>
-        Mark Twain
-      </figcaption>
+      <div className='d-flex align-items-center justify-content-between'>
+        <figcaption className='blockquote-footer mb-0 mt-0 font-italic'>
+          {author}
+        </figcaption>
+        <div className='d-flex'>
+          <Link
+            to={`/quotes/:${id}/edit`}
+            className='btn d-flex justify-content-center align-items-center ms-2'
+          >
+            <img src={editIcon} alt='edit' style={{ height: '20px' }} />
+          </Link>
+          <button className='btn d-flex justify-content-center align-items-center'>
+            <img src={deleteIcon} alt='delete' style={{ height: '30px' }} />
+          </button>
+        </div>
+      </div>
     </figure>
   );
 };

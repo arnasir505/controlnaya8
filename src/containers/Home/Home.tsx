@@ -39,7 +39,14 @@ const Home = () => {
           <Sidebar />
         </div>
         <div className='col-md-8'>
-          {quotes.map(quote => <QuoteItem/>)}
+          {quotes.map((quote) => (
+            <QuoteItem
+              id={quote.id}
+              author={quote.author}
+              text={quote.text}
+              key={quote.id}
+            />
+          ))}
         </div>
       </div>
     </div>
