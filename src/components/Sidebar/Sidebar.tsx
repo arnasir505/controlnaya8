@@ -3,7 +3,7 @@ import { CATEGORIES } from '../../constants';
 
 const Sidebar = () => {
   return (
-    <div className='list-group list-group-flush'>
+    <div className='list-group list-group-flush rounded'>
       <NavLink
         to={'/quotes'}
         className='list-group-item list-group-item-action'

@@ -11,7 +11,6 @@ const Home = () => {
   const fetchQuotes = useCallback(async () => {
     const response = await axiosApi.get<ApiQuotes | null>('/quotes.json');
     const quotes = response.data;
-    console.log(quotes);
     if (quotes) {
       setQuotes(
         Object.keys(quotes).map((id) => ({
@@ -21,6 +20,10 @@ const Home = () => {
       );
     }
   }, []);
+
+  const updateQuotes = (id: string) => {
+    setQuotes((prevState) => prevState.filter((quote) => quote.id !== id));
+  };
 
   useEffect(() => {
     void fetchQuotes();
@@ -45,6 +48,7 @@ const Home = () => {
               author={quote.author}
               text={quote.text}
               key={quote.id}
+              updateQuotes={updateQuotes}
             />
           ))}
         </div>

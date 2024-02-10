@@ -1,15 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import editIcon from '../../assets/icons/pencil-square.svg';
 import deleteIcon from '../../assets/icons/x.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axiosApi from '../../axiosApi';
 
 interface Props {
   id: string;
   author: string;
   text: string;
+  updateQuotes: (id: string) => void;
 }
 
-const QuoteItem: React.FC<Props> = ({ id, author, text }) => {
+const QuoteItem: React.FC<Props> = ({ id, author, text, updateQuotes }) => {
   const [color, setColor] = useState('');
 
   const getRandomColor = useCallback((stringInput: string) => {
@@ -18,6 +20,12 @@ const QuoteItem: React.FC<Props> = ({ id, author, text }) => {
     }, 0);
     setColor(`hsl(${stringUniqueHash % 360}, 95%, 35%)`);
   }, []);
+
+  const deleteQuote = async (id: string) => {
+    console.log(id);
+    await axiosApi.delete(`/quotes/${id}.json`);
+    updateQuotes(id);
+  };
 
   useEffect(() => {
     getRandomColor(author);
@@ -37,12 +45,15 @@ const QuoteItem: React.FC<Props> = ({ id, author, text }) => {
         </figcaption>
         <div className='d-flex'>
           <Link
-            to={`/quotes/:${id}/edit`}
+            to={`/quotes/${id}/edit`}
             className='btn d-flex justify-content-center align-items-center ms-2'
           >
             <img src={editIcon} alt='edit' style={{ height: '20px' }} />
           </Link>
-          <button className='btn d-flex justify-content-center align-items-center'>
+          <button
+            className='btn d-flex justify-content-center align-items-center'
+            onClick={() => deleteQuote(id)}
+          >
             <img src={deleteIcon} alt='delete' style={{ height: '30px' }} />
           </button>
         </div>
