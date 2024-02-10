@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Quote } from '../../types';
+import axiosApi from '../../axiosApi';
 
 const QuoteEditor = () => {
   const [quote, setQuote] = useState<Quote>({
@@ -7,6 +8,7 @@ const QuoteEditor = () => {
     category: '',
     text: '',
   });
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -19,16 +21,19 @@ const QuoteEditor = () => {
     }));
   };
 
-  const addQuote = (e: React.FormEvent<HTMLButtonElement>) => {
+  const addQuote = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(quote);
+    setIsDisabled(true);
+    await axiosApi.post('/quotes.json', quote);
+    setQuote({ author: '', category: '', text: '' });
+    setIsDisabled(false);
   };
 
   return (
     <div className='container'>
       <div className='col-6'>
         <h2 className='my-3'>Submit new quote</h2>
-        <form>
+        <form onSubmit={(e) => addQuote(e)}>
           <div className='mb-3'>
             <label htmlFor='category' className='form-label'>
               Category
@@ -39,7 +44,11 @@ const QuoteEditor = () => {
               className='form-select'
               value={quote.category}
               onChange={(e) => handleChange(e)}
+              required
             >
+              <option selected disabled value={''}>
+                Choose...
+              </option>
               <option value='star-wars'>Star Wars</option>
               <option value='famous-people'>Famous People</option>
               <option value='humor'>Humor</option>
@@ -58,6 +67,7 @@ const QuoteEditor = () => {
               className='form-control'
               value={quote.author}
               onChange={(e) => handleChange(e)}
+              required
             />
           </div>
           <div className='mb-3'>
@@ -71,12 +81,12 @@ const QuoteEditor = () => {
               rows={3}
               value={quote.text}
               onChange={(e) => handleChange(e)}
+              required
             ></textarea>
           </div>
           <button
             type='submit'
-            className='btn btn-primary'
-            onClick={(e) => addQuote(e)}
+            className={`btn btn-primary ${isDisabled ? 'disabled' : ''}`}
           >
             Submit
           </button>
