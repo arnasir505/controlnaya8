@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Quote } from '../../types';
 import axiosApi from '../../axiosApi';
+import { CATEGORIES } from '../../constants';
 
 const QuoteEditor = () => {
   const [quote, setQuote] = useState<Quote>({
@@ -31,7 +32,7 @@ const QuoteEditor = () => {
 
   return (
     <div className='container'>
-      <div className='col-6'>
+      <div className='col-md-6'>
         <h2 className='my-3'>Submit new quote</h2>
         <form onSubmit={(e) => addQuote(e)}>
           <div className='mb-3'>
@@ -46,14 +47,14 @@ const QuoteEditor = () => {
               onChange={(e) => handleChange(e)}
               required
             >
-              <option selected disabled value={''}>
+              <option disabled value={''}>
                 Choose...
               </option>
-              <option value='star-wars'>Star Wars</option>
-              <option value='famous-people'>Famous People</option>
-              <option value='humor'>Humor</option>
-              <option value='motivational'>Motivational</option>
-              <option value='game-of-thrones'>Game of Thrones</option>
+              {CATEGORIES.map((category) => (
+                <option value={category.id} key={category.id}>
+                  {category.title}
+                </option>
+              ))}
             </select>
           </div>
           <div className='mb-3'>
