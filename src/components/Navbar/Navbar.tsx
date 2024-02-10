@@ -2,7 +2,7 @@ import { Link, NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <nav className='navbar navbar-expand bg-body-tertiary'>
+    <nav className='navbar navbar-expand bg-white'>
       <div className='container justify-content-between'>
         <Link to={'/'} className='navbar-brand fw-bold'>
           Quotes Library

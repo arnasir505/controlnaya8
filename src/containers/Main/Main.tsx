@@ -10,7 +10,9 @@ const Main = () => {
         <div className='col-md-4'>
           <Sidebar />
         </div>
-        <div className='col-md-8'>{params.id ? <Outlet /> : <QuoteList />}</div>
+        <div className='col-md-8 mt-5 mt-md-0'>
+          {params.id ? <Outlet /> : <QuoteList />}
+        </div>
       </div>
     </div>
   );
