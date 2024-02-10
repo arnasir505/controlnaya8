@@ -4,7 +4,9 @@ const Navbar = () => {
   return (
     <nav className='navbar navbar-expand bg-body-tertiary'>
       <div className='container justify-content-between'>
-        <Link to={'/'} className='navbar-brand fw-bold'>Quotes Library</Link>
+        <Link to={'/'} className='navbar-brand fw-bold'>
+          Quotes Library
+        </Link>
         <ul className='navbar-nav'>
           <li className='nav-item'>
             <NavLink className='nav-link' to='/'>

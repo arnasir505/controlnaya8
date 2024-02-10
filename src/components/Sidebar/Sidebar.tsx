@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { CATEGORIES } from '../../constants';
 
 const Sidebar = () => {
@@ -8,13 +8,13 @@ const Sidebar = () => {
         All
       </Link>
       {CATEGORIES.map((category) => (
-        <Link
+        <NavLink
           to={`/quotes/${category.id}`}
           key={category.id}
           className='list-group-item list-group-item-action'
         >
           {category.title}
-        </Link>
+        </NavLink>
       ))}
     </div>
   );
