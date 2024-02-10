@@ -1,9 +1,13 @@
-export interface Quote {
+export interface ApiQuote {
   author: string;
   category: string;
   text: string;
 }
 
-export interface ApiQuote extends Quote {
+export interface Quote extends ApiQuote {
   id: string;
+}
+
+export interface ApiQuotes {
+  [id: string]: ApiQuote;
 }

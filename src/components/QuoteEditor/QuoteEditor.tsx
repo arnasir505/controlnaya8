@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Quote } from '../../types';
+import { ApiQuote } from '../../types';
 import axiosApi from '../../axiosApi';
 import { CATEGORIES } from '../../constants';
 
 const QuoteEditor = () => {
-  const [quote, setQuote] = useState<Quote>({
+  const [quote, setQuote] = useState<ApiQuote>({
     author: '',
     category: '',
     text: '',

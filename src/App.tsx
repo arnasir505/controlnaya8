@@ -11,6 +11,10 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/quotes' element={<Home />} />
         <Route path='/add-quote' element={<QuoteEditor />} />
+        <Route
+          path='*'
+          element={<h1 className='text-center mt-5'>Not Found!</h1>}
+        />
       </Routes>
     </>
   );
