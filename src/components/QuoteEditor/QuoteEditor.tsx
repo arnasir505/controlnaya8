@@ -1,4 +1,29 @@
+import { useState } from 'react';
+import { Quote } from '../../types';
+
 const QuoteEditor = () => {
+  const [quote, setQuote] = useState<Quote>({
+    author: '',
+    category: '',
+    text: '',
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    setQuote((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const addQuote = (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    console.log(quote);
+  };
+
   return (
     <div className='container'>
       <div className='col-6'>
@@ -8,7 +33,13 @@ const QuoteEditor = () => {
             <label htmlFor='category' className='form-label'>
               Category
             </label>
-            <select name='category' id='category' className='form-select'>
+            <select
+              name='category'
+              id='category'
+              className='form-select'
+              value={quote.category}
+              onChange={(e) => handleChange(e)}
+            >
               <option value='star-wars'>Star Wars</option>
               <option value='famous-people'>Famous People</option>
               <option value='humor'>Humor</option>
@@ -25,6 +56,8 @@ const QuoteEditor = () => {
               name='author'
               id='author'
               className='form-control'
+              value={quote.author}
+              onChange={(e) => handleChange(e)}
             />
           </div>
           <div className='mb-3'>
@@ -36,9 +69,15 @@ const QuoteEditor = () => {
               id='text'
               className='form-control'
               rows={3}
+              value={quote.text}
+              onChange={(e) => handleChange(e)}
             ></textarea>
           </div>
-          <button type='submit' className='btn btn-primary'>
+          <button
+            type='submit'
+            className='btn btn-primary'
+            onClick={(e) => addQuote(e)}
+          >
             Submit
           </button>
         </form>
