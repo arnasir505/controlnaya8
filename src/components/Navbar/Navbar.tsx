@@ -1,10 +1,10 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   return (
     <nav className='navbar navbar-expand bg-body-tertiary'>
       <div className='container justify-content-between'>
-        <span className='navbar-brand fw-bold'>Quotes Library</span>
+        <Link to={'/'} className='navbar-brand fw-bold'>Quotes Library</Link>
         <ul className='navbar-nav'>
           <li className='nav-item'>
             <NavLink className='nav-link' to='/'>

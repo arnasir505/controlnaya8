@@ -1,15 +1,24 @@
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
-import QuoteEditor from './components/QuoteEditor/QuoteEditor';
-import Home from './containers/Home/Home';
+import QuoteEditor from './containers/QuoteEditor/QuoteEditor';
+import Main from './containers/Main/Main';
+import { CATEGORIES } from './constants';
 
 function App() {
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/quotes' element={<Home />} />
+        <Route path='/' element={<Main />} />
+        <Route path='/quotes' element={<Main />}>
+          {CATEGORIES.map((category) => (
+            <Route
+              path={category.id}
+              element={<span>{category.title}</span>}
+              key={category.id}
+            />
+          ))}
+        </Route>
         <Route path='/add-quote' element={<QuoteEditor />} />
         <Route path='/quotes/:id/edit' element={<QuoteEditor />} />
         <Route

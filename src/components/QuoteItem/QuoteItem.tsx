@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import editIcon from '../../assets/icons/pencil-square.svg';
 import deleteIcon from '../../assets/icons/x.svg';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axiosApi from '../../axiosApi';
 
 interface Props {
