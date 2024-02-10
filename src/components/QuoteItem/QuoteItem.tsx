@@ -22,7 +22,6 @@ const QuoteItem: React.FC<Props> = ({ id, author, text, updateQuotes }) => {
   }, []);
 
   const deleteQuote = async (id: string) => {
-    console.log(id);
     await axiosApi.delete(`/quotes/${id}.json`);
     updateQuotes(id);
   };

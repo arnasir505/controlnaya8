@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { CATEGORIES } from '../../constants';
 
 const Sidebar = () => {
